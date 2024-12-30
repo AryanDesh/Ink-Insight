@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  penName     String   @unique // Public name for the user
+  email       String   @unique 
+  password    String   // Hashed password
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  posts       Post[]   
+  followers   Follower[] @relation("followers")
+  following   Follower[] @relation("following")
+  subscriptions Subscription[]
+  comments    Comment[]
+  likes       Like[]
+  activityLogs ActivityLog[]
+  postCollaborations PostCollaborator[]
+  PostVersion PostVersion[]
+}
+
+model PostCollaborator {
+  id        Int @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  role      CollaboratorRole
+  user      User @relation(fields: [userId], references: [id])
+  post      Post @relation(fields: [postId], references: [id])
+}
+
+enum CollaboratorRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+model Follower {
+  id            Int    @id @default(autoincrement())
+  followerId    Int
+  followingId   Int
+  follower      User    @relation("followers" , fields: [followerId], references: [id])
+  following     User    @relation("following", fields: [followingId], references: [id])
+  followedAt    DateTime @default(now())
+
+    @@unique([followerId, followingId]) //making sure a user can follow another user only once
+} 
+
+model Subscription {
+  id        Int @id @default(autoincrement())
+  userId    Int
+  user      User @relation( fields: [userId], references: [id])
+  topicId   Int
+  topic     Topic @relation(fields: [topicId], references: [id])
+}
+
+model Topic {
+  id            Int @id @default(autoincrement())
+  name          String @unique
+  subscribers   Subscription[]
+}
+
+model Comment {
+  id        Int @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User @relation(fields: [userId], references: [id])
+  postId    Int
+  post      Post @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        Int @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User @relation(fields: [userId], references: [id])
+  postId    Int
+  post      Post @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id            Int @id @default(autoincrement())
+  action        ActivityAction
+  userId        Int
+  postId        Int?
+  user          User @relation(fields: [userId], references: [id])
+  post          Post? @relation(fields: [postId], references: [id])
+  timestamp     DateTime @default(now())
+}
+
+enum ActivityAction {
+  CREATED_POST
+  EDITED_POST
+  COMMENTED
+  LIKED
+  FOLLOWED
+  SUBSCRIBED
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String   // Markdown content
+  ownerId     Int
+  owner       User     @relation(fields: [ownerId], references: [id])
+  status PostStatus @default(DRAFT)
+  createdAt   DateTime @default(now())
+  publishedAt DateTime?
+  tags        Tag[]    @relation("post_tags")
+  likes       Like[]
+  comments    Comment[]
+  versions    PostVersion[]
+  collaborators PostCollaborator[]
+  ActivityLog ActivityLog[]
+}
+
+model Tag {
+  id      Int @id @default(autoincrement())
+  name    String
+  posts   Post[]   @relation("post_tags")
+}
+
+model PostVersion {
+  id            Int @id @default(autoincrement())
+  content       String //Either going to make this as a SnapShot of the entire thing or use an algorithm to get the diff between previous versions.
+  postId        Int
+  post          Post @relation(fields: [postId], references: [id])
+  versionNumber Int @default(autoincrement())
+  modifiedBy    Int
+  user          User @relation(fields: [modifiedBy], references: [id])
+  modifiedAt    DateTime @default(now())
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+}
