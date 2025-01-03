@@ -25,14 +25,6 @@ model User {
   PostVersion PostVersion[]
 }
 
-model PostCollaborator {
-  id        Int @id @default(autoincrement())
-  postId    Int
-  userId    Int
-  role      CollaboratorRole
-  user      User @relation(fields: [userId], references: [id])
-  post      Post @relation(fields: [postId], references: [id])
-}
 
 enum CollaboratorRole {
   OWNER
@@ -142,4 +134,12 @@ enum PostStatus {
   DRAFT
   PUBLISHED
   SCHEDULED
+}
+model PostCollaborator {
+  id        Int @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  role      CollaboratorRole
+  user      User @relation(fields: [userId], references: [id])
+  post      Post @relation(fields: [postId], references: [id])
 }
