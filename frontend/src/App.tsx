@@ -1,9 +1,9 @@
-import MarkdownEditor from "./editor/_components"
+import Editor from "./editor/index"
 
 export default function App() {
   return (
     <>
-    < MarkdownEditor />
+    < Editor />
     </>
   )
 }
