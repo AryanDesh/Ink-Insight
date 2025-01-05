@@ -11,6 +11,7 @@ type tUser = {
 export const userRouter = Router();
 
 userRouter.post('/signin', async(req, res) => {
- 
+    console.log('signed IN');
+    res.send(200);
 })
 
