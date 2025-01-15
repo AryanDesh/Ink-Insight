@@ -1,23 +1,10 @@
 import EditorJS, {BlockToolConstructable } from '@editorjs/editorjs';
-import React ,{useRef , useEffect, useState} from 'react'
+import React ,{useRef , useEffect, useState, Dispatch, SetStateAction} from 'react'
 import { tEditorData } from '../lib/types';
 import Paragraph from '@editorjs/paragraph';
 import Header from '@editorjs/header';
 import EditorjsList from '@editorjs/list';
-const initialData =  () : tEditorData => {
-  return {
-    "time" : new Date().getTime(),
-    "blocks" : [
-      {
-        "type" : "header",
-        "data" : {
-          "text" : "Let Your Imagination run WILD",
-          "level" : 1
-        } 
-      }
-    ]
-  }
-}
+
 
 const HeaderTool = Header as unknown as BlockToolConstructable;
 const ParagraphTool = Paragraph as unknown as BlockToolConstructable;
@@ -26,10 +13,11 @@ const ListTool = EditorjsList as unknown as BlockToolConstructable;
 const editorHolderId = 'editorjs';
 
 type t = Partial<tEditorData>
-const Editor = () => {
+const Editor = ( {editorData, setEditorData} : {editorData : t , setEditorData: Dispatch<SetStateAction<Partial<tEditorData>>>} ) => {
   const ejRef = useRef<EditorJS | null>(null);
-  const [editorData, setEditorData] = useState<t>(initialData);
-
+  if(editorData.blocks){
+    editorData.blocks.map((block) => console.log(block.data.text));
+  }
   useEffect(() => {
     if(!ejRef.current) initEditor();
     return () => {
@@ -38,6 +26,13 @@ const Editor = () => {
     }
   }, []);
 
+  useEffect(() => {
+
+  }, [editorData])
+
+  // useEffect(() => {
+  //   console.log("bifdbksbcb D");
+  // }, []);
   const initEditor = () => {
     const editor = new EditorJS({
       holder : editorHolderId ,
