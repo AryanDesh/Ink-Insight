@@ -2,7 +2,7 @@
   "name": "hello-prisma",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node ./src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "queries": "ts-node ./src/queries.ts",
     "caching": "ts-node ./src/caching.ts",
     "realtime": "ts-node ./src/realtime.ts"
@@ -26,6 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "node-schedule": "^2.1.1",
     "socket.io": "^4.8.1",
+    "ts-node-dev": "^2.0.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

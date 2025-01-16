@@ -9,9 +9,9 @@ datasource db {
 
 model User {
   id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  penName     String   @default("")// Public name for the user
+  penName     String   @default("")
   email       String   @unique 
-  password    String   // Hashed password
+  password    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   posts       Post[]   
@@ -121,9 +121,7 @@ model Tag {
 
 model PostVersion {
   id            Int @id @default(autoincrement())
-  content       Json //Either going to make this as a SnapShot of the entire thing or use an algorithm to get the diff between previous versions.
-  postId        Int
-  post          Post @relation(fields: [postId], references: [id])
+  versions      Post[]
   versionNumber Int @default(autoincrement())
   modifiedBy    String @db.Uuid
   user          User @relation(fields: [modifiedBy], references: [id])

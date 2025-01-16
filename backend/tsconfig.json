@@ -5,6 +5,9 @@
     "strict": true,
     "lib": ["esnext"],
     "esModuleInterop": true,
+    "rootDir": "./src",
     "typeRoots": ["./node_modules/@types", "./src/types"]
-  }
+  },
+  "include": ["src/**/*", "src/**/*.d.ts"]
+  
 }

@@ -51,3 +51,30 @@ export const toggleFollow = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to toggle follow." });
   }
 };
+
+// update user details.
+export const updateUserDetails = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  const { penName, email, password } = req.body;
+
+  try {
+    if (!penName && !email && !password) {
+      res.status(400).json({ error: "No fields to update provided." });
+      return 
+    }
+
+    const updatedUser = await db.user.update({
+      where: { id: userId },
+      data: {
+        ...(penName && { penName }),
+        ...(email && { email }),
+        ...(password && { password }),
+      },
+    });
+
+    res.json({ message: "User details updated successfully.", updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update user details." });
+  }
+};
