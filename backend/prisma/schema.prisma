@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  penName     String   @unique // Public name for the user
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  penName     String   @default("")// Public name for the user
   email       String   @unique 
   password    String   // Hashed password
   createdAt   DateTime @default(now())
@@ -34,8 +34,8 @@ enum CollaboratorRole {
 
 model Follower {
   id            Int    @id @default(autoincrement())
-  followerId    Int
-  followingId   Int
+  followerId    String @db.Uuid
+  followingId   String @db.Uuid
   follower      User    @relation("followers" , fields: [followerId], references: [id])
   following     User    @relation("following", fields: [followingId], references: [id])
   followedAt    DateTime @default(now())
@@ -45,7 +45,7 @@ model Follower {
 
 model Subscription {
   id        Int @id @default(autoincrement())
-  userId    Int
+  userId    String @db.Uuid
   user      User @relation( fields: [userId], references: [id])
   topicId   Int
   topic     Topic @relation(fields: [topicId], references: [id])
@@ -60,7 +60,7 @@ model Topic {
 model Comment {
   id        Int @id @default(autoincrement())
   content   String
-  userId    Int
+  userId    String @db.Uuid
   user      User @relation(fields: [userId], references: [id])
   postId    Int
   post      Post @relation(fields: [postId], references: [id])
@@ -69,8 +69,7 @@ model Comment {
 
 model Like {
   id        Int @id @default(autoincrement())
-  content   String
-  userId    Int
+  userId    String @db.Uuid
   user      User @relation(fields: [userId], references: [id])
   postId    Int
   post      Post @relation(fields: [postId], references: [id])
@@ -80,7 +79,7 @@ model Like {
 model ActivityLog {
   id            Int @id @default(autoincrement())
   action        ActivityAction
-  userId        Int
+  userId        String @db.Uuid
   postId        Int?
   user          User @relation(fields: [userId], references: [id])
   post          Post? @relation(fields: [postId], references: [id])
@@ -98,13 +97,14 @@ enum ActivityAction {
 
 model Post {
   id          Int      @id @default(autoincrement())
-  title       String
-  content     String   // Markdown content
-  ownerId     Int
-  owner       User     @relation(fields: [ownerId], references: [id])
+  title       String  @default("Untitled")
+  content     Json   @default("{}")
+  ownerId     String  @db.Uuid
+  owner       User    @relation(fields: [ownerId], references: [id])
   status PostStatus @default(DRAFT)
   createdAt   DateTime @default(now())
   publishedAt DateTime?
+  publishAt   DateTime?
   tags        Tag[]    @relation("post_tags")
   likes       Like[]
   comments    Comment[]
@@ -121,11 +121,11 @@ model Tag {
 
 model PostVersion {
   id            Int @id @default(autoincrement())
-  content       String //Either going to make this as a SnapShot of the entire thing or use an algorithm to get the diff between previous versions.
+  content       Json //Either going to make this as a SnapShot of the entire thing or use an algorithm to get the diff between previous versions.
   postId        Int
   post          Post @relation(fields: [postId], references: [id])
   versionNumber Int @default(autoincrement())
-  modifiedBy    Int
+  modifiedBy    String @db.Uuid
   user          User @relation(fields: [modifiedBy], references: [id])
   modifiedAt    DateTime @default(now())
 }
@@ -138,7 +138,7 @@ enum PostStatus {
 model PostCollaborator {
   id        Int @id @default(autoincrement())
   postId    Int
-  userId    Int
+  userId    String @db.Uuid
   role      CollaboratorRole
   user      User @relation(fields: [userId], references: [id])
   post      Post @relation(fields: [postId], references: [id])

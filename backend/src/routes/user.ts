@@ -1,17 +1,10 @@
-import { Router } from "express";
-import dotenv from 'dotenv';
-import { db } from "../db";
-import { User } from "@prisma/client";
-import { object } from "zod";
+import express from "express";
+import { getUserInfo, toggleFollow } from "../controller/userController";
+import auth from "../middleware/auth";
 
-type tUser = {
-    email : string,
-    password : string
-};
-export const userRouter = Router();
+const userRouter = express.Router();
 
-userRouter.post('/signin', async(req, res) => {
-    console.log('signed IN');
-    res.send(200);
-})
+userRouter.get("/info", auth, getUserInfo);
+userRouter.post("/follow", auth, toggleFollow);
 
+export default userRouter;

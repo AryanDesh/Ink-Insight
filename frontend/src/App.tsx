@@ -1,9 +1,10 @@
-import { CollabBlog } from "./collaboration"
-
+import Landing from "./components/Landing"
+import Topbar from "./components/Topbar"
 export default function App() {
   return (
     <>
-    < CollabBlog />
+    <Topbar />
+    < Landing />
     </>
   )
 }

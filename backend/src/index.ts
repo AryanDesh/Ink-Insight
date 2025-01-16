@@ -1,45 +1,26 @@
-import { userRouter } from './routes/user';
-import { blogRoute } from './routes/blog';
+import userRouter from './routes/user';
+import blogRouter from './routes/post';
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import express  from "express";
 import dotenv from 'dotenv';
 import { createServer } from 'node:http';
-import {Server } from 'socket.io';
-import { tEditorData } from './lib/types';
-
+import signupRouter from './routes/signup';
+import loginRouter from './routes/login';
 dotenv.config();
-export const Port = process.env.PORT || 3000;
-export const app = express();
+const Port = process.env.PORT || 3000;
+const app = express();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cors())
+app.use(cors())
 
-app.use('/api/v1/user', userRouter )
-app.use('/api/v1/blog', blogRoute)
+app.use('/api/v1/signup', signupRouter);
+app.use('/api/v1/login', loginRouter);
+app.use('/api/v1/user', userRouter );
+app.use('/api/v1/blog', blogRouter);
 
-const server = createServer(app);
-
-const io = new Server(server, {
-    connectionStateRecovery: {},
-    cors : {
-      origin : "http://localhost:5173"
-    }
-});
-
-io.on('connection', (socket) => {
-    console.log(`User connected: ${socket.id}`);
-  
-    socket.on("send-message", (updates:Partial<tEditorData>) => {
-      updates.blocks?.map((block) => console.log(block.data.text))
-      socket.broadcast.emit("receive-message", updates); 
-    });
-  
-    socket.on("disconnect", () => {
-      console.log(`User disconnected: ${socket.id}`);
-    });
-});
+export const server = createServer(app);
 
 server.listen(Port, () => console.log("Running on port :" + Port))
