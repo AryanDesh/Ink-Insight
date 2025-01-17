@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { OutputData } from "@editorjs/editorjs";
 
 // Function to generate initial data
-const initialData = (): OutputData => {
+export const initialData = (): OutputData => {
   return {
     time: new Date().getTime(),
     blocks: [

@@ -8,6 +8,7 @@ import { createServer } from 'node:http';
 import signupRouter from './routes/signup';
 import loginRouter from './routes/login';
 import { Server } from 'socket.io';
+import { sockets } from './routes/collab';
 dotenv.config();
 const Port = process.env.PORT || 3000;
 const app = express();
@@ -31,17 +32,7 @@ export const io = new Server(server, {
     }
 });
 
-io.of('/collab').on('connection', (socket) => {
-    console.log(`User connected: ${socket.id}`);
-  
-    socket.on("send-message", (updates) => {
-      updates.blocks?.map((block: { data: { text: any; }; }) => console.log(block.data.text))
-      socket.broadcast.emit("receive-message", updates); 
-    });
-  
-    socket.on("disconnect", () => {
-      console.log(`User disconnected: ${socket.id}`);
-    });
-});
+
+sockets();
 
 server.listen(Port, () => console.log("Running on port :" + Port))

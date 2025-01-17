@@ -1,12 +1,15 @@
 import { io , Socket } from 'socket.io-client';
+import { OutputData } from '@editorjs/editorjs';
+import { Params } from 'react-router-dom';
 
 export type serverToClientEvent = {
-    "receive-message" : (message: string) => void
+    "receive-message" : (message: OutputData) => void
 }
 
 export type clienttoServerEvent = {
-    "send-message" : (message: string) => void;
+    "send-message" : (message: OutputData, roomId : Readonly<Params<string>>) => void;
 }
+
 
 const Socket_URL = "http://localhost:3000/collab";
 
