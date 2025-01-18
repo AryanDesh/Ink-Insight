@@ -1,9 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-const Topbar = () => {
+const Topbar : React.FC = () => {
   return (
-    <div>Topbar</div>
-  )
-}
+    <div className='p-4 z-50 flex items-center justify-between '>
+      <div className="text-primary-black text-xl font-extrabold">  
+        INK & INSIGHT
+      </div>
+      <div className='flex items-start justify-between gap-4'>
+        <button className='text-primary-black font-semibold'>Indulge</button>
+        <button className='text-primary-black font-semibold'>Profile</button>
+      </div>
+    </div>
+  );
+};
 
-export default Topbar
+export default Topbar;

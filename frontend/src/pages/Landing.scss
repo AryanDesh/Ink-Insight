@@ -1,0 +1,39 @@
+
+:root {
+    --primary-color: #000000;
+    --font-size: 16vw;
+}
+
+.wrapper {
+    position: relative;
+    height: var(--font-size);
+    overflow:hidden;
+}
+
+.item {
+    position: absolute;
+    font-size: 11dvw;
+    width: 120%;
+    color: 1E1E1E;
+    opacity : 0.50;
+    font-weight: bolder;
+    left: 100%;
+    animation: marquee 10s linear infinite;
+}
+
+.item1 {
+    animation-delay: calc( 10s / 2 * (2 - 1) * -1) ;   
+}
+
+.item2 {
+    animation-delay: calc( 10s / 2 * (2 - 2) * -1) ;   
+}
+
+@keyframes marquee {
+    from {
+        left : 100%
+    }
+    to {
+        left: -100dvw
+    }
+}

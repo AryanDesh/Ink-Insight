@@ -1,42 +1,24 @@
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Landing from "./components/Landing";
-import Topbar from "./components/Topbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CollabBlog } from "./collaboration";
+import Editor from "./editor";
+import { Landing } from "./pages";
+import { Topbar } from "./components";
 
 export default function App() {
-  const [roomId, setRoomId] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null); // Correct ref for input field
 
-  const navigate = useNavigate();
+  return( 
+    <div className="bg-primary-black min-h-screen flex items-center justify-center">
+      <div className="bg-primary-off_white m-4 rounded-md w-[96vw] min-h-[96vh]">
+        <Topbar></Topbar>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/room/:roomId" element={<CollabBlog />} />
+            <Route path="/editor" element={<Editor />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </div>
+  )
 
-  const createRoom = () => {
-    const newRoomId = `${Date.now()}`;
-    setRoomId(newRoomId);
-    navigate(`/room/${newRoomId}`);
-  };
-
-  const openEditor = () => {
-    navigate(`/editor`);
-  }
-  const joinRoom = () => {
-    const existingRoomId = inputRef.current?.value.trim(); // Safely access value
-    if (existingRoomId) {
-      setRoomId(existingRoomId);
-      navigate(`/room/${existingRoomId}`);
-    } else {
-      alert("Please enter a valid room ID");
-    }
-  };
-
-  return (
-    <>
-      <Topbar />
-      <Landing />
-      <button onClick={createRoom}>Create Room</button>
-      <input type="text" placeholder="Enter room ID" ref={inputRef} /> {/* Correct ref binding */}
-      <button onClick={joinRoom}>Join Room</button>
-      <button onClick={openEditor}> Editor</button>
-
-    </>
-  );
 }
