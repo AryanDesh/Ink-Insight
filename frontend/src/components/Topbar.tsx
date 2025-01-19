@@ -2,7 +2,7 @@ import React from 'react';
 
 const Topbar : React.FC = () => {
   return (
-    <div className='p-4 z-50 flex items-center justify-between '>
+    <div className='pt-10 px-6 z-50 flex items-center justify-between '>
       <div className="text-primary-black text-xl font-extrabold">  
         INK & INSIGHT
       </div>

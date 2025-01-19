@@ -7,8 +7,9 @@ import { Topbar } from "./components";
 export default function App() {
 
   return( 
-    <div className="bg-primary-black min-h-screen flex items-center justify-center">
-      <div className="bg-primary-off_white m-4 rounded-md w-[96vw] min-h-[96vh]">
+    
+    <div className="bg-primary-black min-h-screen max-h-screen flex items-center justify-center">
+      <div className="bg-primary-off_white m-10 rounded-md w-[96vw] min-h-[96vh] overflow-hidden">
         <Topbar></Topbar>
         <BrowserRouter>
           <Routes>

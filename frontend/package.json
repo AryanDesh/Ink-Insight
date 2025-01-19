@@ -14,13 +14,17 @@
     "@editorjs/header": "^2.8.8",
     "@editorjs/list": "^2.0.2",
     "@editorjs/paragraph": "^2.11.7",
+    "@react-three/drei": "^9.121.2",
+    "@react-three/fiber": "^8.17.12",
     "@types/recoil": "^0.0.1",
     "body-parser": "^1.20.3",
+    "gsap": "^3.12.7",
     "io": "^1.5.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recoil": "^0.7.7",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "three": "^0.172.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

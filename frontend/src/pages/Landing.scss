@@ -1,39 +1,71 @@
 
 :root {
     --primary-color: #000000;
-    --font-size: 16vw;
+    --font-size: 45vw;
 }
 
 .wrapper {
     position: relative;
     height: var(--font-size);
     overflow:hidden;
+    width: 250%;
+    z-index: 0;
+    display: flex; 
+    // border: 1px solid #000000;
 }
 
 .item {
     position: absolute;
-    font-size: 11dvw;
-    width: 120%;
+    font-size: 18dvw;
+    top: -10%;
+    width: 100%;
     color: 1E1E1E;
-    opacity : 0.50;
+    opacity : 0.30;
+    font-style: italic;
     font-weight: bolder;
     left: 100%;
-    animation: marquee 10s linear infinite;
+    animation: marquee 30s linear infinite;
 }
 
 .item1 {
-    animation-delay: calc( 10s / 2 * (2 - 1) * -1) ;   
+    animation-delay: calc( 30s / 2 * (2 - 1) * -1) ;   
 }
 
 .item2 {
-    animation-delay: calc( 10s / 2 * (2 - 2) * -1) ;   
+    animation-delay: calc( 30s / 2 * (2 - 2) * -1) ;   
 }
 
 @keyframes marquee {
     from {
-        left : 100%
+        left : 80%
     }
     to {
-        left: -100dvw
+        left: -160dvw
     }
 }
+.animated-letter {
+    display: inline-block;
+    opacity: 0;
+    animation: retrace 2s ease-in-out forwards;
+    animation-delay: calc(var(--index) * 0.5s);
+  }
+  
+  @keyframes retrace {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+      filter: blur(5px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+  }
+  
+  
