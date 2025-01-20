@@ -1,0 +1,36 @@
+/* Parent Container */
+.navbar {
+    padding-top: 2.5rem; /* 10 units in Tailwind equals 2.5rem */
+    padding-left: 1.5rem; /* 6 units in Tailwind equals 1.5rem */
+    padding-right: 1.5rem; /* 6 units in Tailwind equals 1.5rem */
+    position: relative;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Logo Text */
+  .navbar-logo {
+    color: #000; /* Replace with your desired black color */
+    font-size: 1.25rem; /* 1.25rem corresponds to text-xl */
+    font-weight: 800; /* Extra bold font */
+  }
+  
+  /* Button Container */
+  .navbar-buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem; /* 4 units in Tailwind equals 1rem */
+  }
+  
+  /* Buttons */
+  .navbar-button {
+    color: #000; /* Replace with your desired black color */
+    font-weight: 600; /* Semi-bold font */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  

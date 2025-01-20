@@ -30,8 +30,9 @@ const Editor: React.FC<EditorComponentProps> = ({ receivedData, collab }) => {
   const ejRef = useRef<EditorJS | null>(null);
 
   useEffect(() => {
-    if (!ejRef.current) initEditor();
-
+    if (!ejRef.current) {
+      initEditor();
+    }
     return () => {
       ejRef.current?.destroy();
       ejRef.current = null;

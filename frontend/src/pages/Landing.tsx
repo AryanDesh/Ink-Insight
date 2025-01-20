@@ -35,20 +35,18 @@ return (
             </span>
           ))}
         </div>
-        <div className="absolute top-[20%] md:left-[1%] left-[10%] md:w-1/6 w-3/12 h-full">
-          <div className="text-[6vw] md:text-[4vw] text-primary-black font-bold ">
+        <div className="container container-md">
+          <div className="heading heading-md">
             Where Words Come to Life
           </div>
-          <div className="md:text-[1.5vw] text-[2vw] md:w-10/12 w-9/12 italic">
+          <div className="subheading subheading-md">
             Transform your thoughts into compelling stories.
-            Join our community of passionate writers and 
-            readers
+            Join our community of passionate writers and readers
           </div>
-          <button className="absolute left-10 mt-4 md:text-[1.5vw] text-[2vw] text-primary-off_white  bg-black rounded-md w-40"
-          onClick={goToNextPage}>
+          <button className="button button-md" onClick={goToNextPage}>
             Start Writing
-            </button>
-      </div>
+          </button>
+        </div>
       </div>
     </div>
   )

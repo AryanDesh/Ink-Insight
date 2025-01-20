@@ -3,14 +3,13 @@ import { CollabBlog } from "./collaboration";
 import { Blogging } from "./pages";
 import { Landing } from "./pages";
 import { Topbar } from "./components";
+import './App.css';
 
 export default function App() {
-
-  return( 
-    
-    <div className="bg-primary-black min-h-screen max-h-screen flex items-center justify-center">
-      <div className="bg-primary-off_white m-10 rounded-md w-[96vw] min-h-[96vh] overflow-hidden">
-        <Topbar></Topbar>
+  return (
+    <div className="bg-primary-black">
+      <div className="bg-primary-off_white">
+        <Topbar />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -20,6 +19,5 @@ export default function App() {
         </BrowserRouter>
       </div>
     </div>
-  )
-
+  );
 }

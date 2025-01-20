@@ -1,3 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Reset default margin and padding */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure html and body take up the full height */
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+/* Ensure the root div takes full height and width */
+#root {
+  height: 100%;
+  width: 100%;
+}
