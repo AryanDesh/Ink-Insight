@@ -11,7 +11,7 @@ export type clienttoServerEvent = {
 }
 
 
-const Socket_URL = "http://localhost:3000/collab";
+const Socket_URL = import.meta.env.SOCKET_URL || "http://localhost:3000/collab";
 
 const socket : Socket<serverToClientEvent, clienttoServerEvent> = io(Socket_URL, {
     transports: ["websocket"],

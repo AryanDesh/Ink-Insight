@@ -1,6 +1,14 @@
 import "./Landing.scss"
+import { useNavigate } from "react-router-dom"
+
 const Landing = () => {
   const text = "INK AND INSIGHT"
+  const navigate = useNavigate();
+
+  const goToNextPage = () => {
+    navigate("/editor");
+  };
+
 
 return (
     <div className="">
@@ -36,7 +44,10 @@ return (
             Join our community of passionate writers and 
             readers
           </div>
-          <button className="absolute left-10 mt-4 md:text-[1.5vw] text-[2vw] text-primary-off_white  bg-black rounded-md w-40">Start Writing</button>
+          <button className="absolute left-10 mt-4 md:text-[1.5vw] text-[2vw] text-primary-off_white  bg-black rounded-md w-40"
+          onClick={goToNextPage}>
+            Start Writing
+            </button>
       </div>
       </div>
     </div>

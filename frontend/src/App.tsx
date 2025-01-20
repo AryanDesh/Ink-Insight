@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CollabBlog } from "./collaboration";
-import Editor from "./editor";
+import { Blogging } from "./pages";
 import { Landing } from "./pages";
 import { Topbar } from "./components";
 
@@ -15,7 +15,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/room/:roomId" element={<CollabBlog />} />
-            <Route path="/editor" element={<Editor />} />
+            <Route path="/editor" element={<Blogging />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -1,9 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
-import EditorJS, {BlockToolConstructable, OutputData} from '@editorjs/editorjs';
+import React, { useEffect, useRef } from 'react'
+import EditorJS, { OutputData} from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import EditorjsList from '@editorjs/list';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import CodeTool from '@editorjs/code';
+import Quote from '@editorjs/quote';
+import Warning from '@editorjs/warning';
+import Delimiter from '@editorjs/delimiter';
+import InlineCode from '@editorjs/inline-code';
+import Table from '@editorjs/table';
+import { useRecoilState } from 'recoil';
 import {editorContent} from '../store/Recoil'
 
 export enum eCollab {
@@ -15,9 +21,6 @@ interface EditorComponentProps {
   collab? : eCollab,
 }
 
-const HeaderTool = Header as unknown as BlockToolConstructable;
-const ParagraphTool = Paragraph as unknown as BlockToolConstructable;
-const ListTool = EditorjsList as unknown as BlockToolConstructable;
 
 type t = Partial<OutputData>
 const editorHolderId = 'editorjs';
@@ -37,7 +40,7 @@ const Editor: React.FC<EditorComponentProps> = ({ receivedData, collab }) => {
 
   useEffect(() => {
     if (ejRef.current && collab == eCollab.RECEIVED) {
-      ejRef.current.render(receivedData);
+      ejRef.current.render(receivedData!);
     }
   }, [receivedData]);
 
@@ -56,13 +59,19 @@ const Editor: React.FC<EditorComponentProps> = ({ receivedData, collab }) => {
       },
       autofocus: true,
       tools: {
-        header: HeaderTool,
-        paragraph: ParagraphTool,
-        list: ListTool,
+        header: Header,
+        paragraph: Paragraph,
+        list: EditorjsList,
+        quote: Quote,
+        warning: Warning,
+        code: CodeTool,
+        delimiter: Delimiter,
+        inlineCode: InlineCode,
+        table: Table
       },
     });
   };
 
-  return <div id={editorHolderId}></div>;
+  return <div id={editorHolderId} ></div>;
 };
 export default Editor;
