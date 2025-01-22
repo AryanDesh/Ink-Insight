@@ -1,72 +1,28 @@
 import './Blogging.scss';
-import React, { useState } from 'react'
 import Editor from '../editor';
+import { Sidebar } from '../components';
+import { SidebarItems } from '../components/Sidebar';
+import { LifeBuoy, Receipt, Boxes, Package, UserCircle  } from 'lucide-react';
 const Blogging = () => {
-  const [leftSidebarOpen, setLeftSidebarOpen] = useState(true)
-  const [rightSidebarOpen, setRightSidebarOpen] = useState(true)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768
-  
-  const toggleLeftSidebar = () => {
-    setLeftSidebarOpen(!leftSidebarOpen)
-  }
-
-  const toggleRightSidebar = () => {
-    setRightSidebarOpen(!rightSidebarOpen)
-  }
 
   return (
-    <div className="blogging-container">
-        {/* Left Sidebar */}
-        <aside 
-        className={`sidebar sidebar-left ${
-          leftSidebarOpen ? 'open' : 'closed'
-        }`}
-      >
-        <h2>Basic Feature</h2>
-        <h2>Other Drafts</h2>
-      </aside>
-
-      {/* Main Content */}
-      <main className="main-content">
-        <button 
-          className="toggle-button toggle-left" 
-          onClick={toggleLeftSidebar}
-        >
-          ☰
-        </button>
-        <button 
-          className="toggle-button toggle-right" 
-          onClick={toggleRightSidebar}
-        >
-          💬
-        </button>
+    <div className='wrapper'>
+      <div className='content'>
+        <Sidebar>
+          <SidebarItems icon= {<LifeBuoy  size={20}/>} text='Dashboard' active={true}></SidebarItems>
+          <SidebarItems icon= {<Receipt  size={20}/>} text='Dashboard' alert={true}></SidebarItems>
+          <SidebarItems icon= {<Boxes  size={20}/>} text='Dashboard' alert={true}></SidebarItems>
+          <SidebarItems icon= {<Package  size={20}/>} text='Dashboard' alert={true}></SidebarItems>
+          <SidebarItems icon= {<UserCircle  size={20}/>} text='Dashboard' alert={true}></SidebarItems>
+          <hr />
+          <SidebarItems icon= {<LifeBuoy  size={20}/>} text='Dashboard' alert={true}></SidebarItems>
+          <SidebarItems icon= {<LifeBuoy  size={20}/>} text='Dashboard' alert={true}></SidebarItems>
+        </Sidebar>
+      </div>
+      <div className='editor'>
         <Editor></Editor>
-      </main>
+      </div>
 
-      {/* Right Sidebar */}
-      <aside 
-        className={`sidebar sidebar-right ${
-          rightSidebarOpen ? 'open' : 'closed'
-        }`}
-      >
-        <h2>Collab</h2>
-        <div className="chatroom">
-          <h3>chatroom</h3>
-        </div>
-      </aside>
-
-      {/* Overlay for mobile */}
-      {isMobile && (leftSidebarOpen || rightSidebarOpen) && (
-        <div 
-          className={`overlay ${
-            leftSidebarOpen || rightSidebarOpen ? 'active' : ''
-          }`}
-          onClick={() => {
-            setLeftSidebarOpen(false)
-            setRightSidebarOpen(false)
-          }}
-        />
-      )}
     </div>
   );
 };

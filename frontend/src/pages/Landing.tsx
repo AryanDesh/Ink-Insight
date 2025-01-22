@@ -11,7 +11,7 @@ const Landing = () => {
 
 
 return (
-    <div className="">
+    <>
       <div className='wrapper '>
         <div className="item item1 "> 
         {text.split('').map((char, index) => (
@@ -48,14 +48,9 @@ return (
           </button>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
 export default Landing
 
-
-
-// Three js varun 
-//  Sketchfab for models
-// 

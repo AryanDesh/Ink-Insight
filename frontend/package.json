@@ -25,18 +25,15 @@
     "@editorjs/simple-image": "^1.6.0",
     "@editorjs/table": "^2.4.3",
     "@editorjs/warning": "^1.4.1",
-    "@react-three/drei": "^9.121.2",
-    "@react-three/fiber": "^8.17.12",
     "@tailwindcss/typography": "^0.5.16",
     "@types/recoil": "^0.0.1",
     "body-parser": "^1.20.3",
-    "gsap": "^3.12.7",
     "io": "^1.5.3",
+    "lucide-react": "^0.473.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recoil": "^0.7.7",
-    "socket.io-client": "^4.8.1",
-    "three": "^0.172.0"
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

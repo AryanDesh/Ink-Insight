@@ -22,6 +22,11 @@ export const editorContent = atom<OutputData>({
   default: initialData(),
 });
 
+export const sidebarExpanded = atom<boolean>({
+    key: "expanded",
+    default: true
+});
+
 /*
 Basics:
 Atoms, useRecoilState, useRecoilValue,useSetRecoilState,selectors, async data queries
